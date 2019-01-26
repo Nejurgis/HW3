@@ -29,18 +29,61 @@ const dataArr = Object.entries(data).reduce((acc,next)=>{
 },[])
 
 class App extends Component {
-  render() {
+  state = {}
 
+  // updateSelection = (event) => {
+  //   this.setState({[event.target.value]: event.target.value})
+  //   console.log(this.state)
+  // }
+
+  updateSelection = (event) => {
+    this.setState({selectValue: event.target.value})
+    // console.log(this.state.selectValue)
+  }
+
+
+
+// function PizzaList(props) {
+//     console.log(props)
+//   return (
+//   <div>
+//     <h1>Pizza Explorer</h1>
+//     <ul>
+//       { props.pizzas.map(pizza =>
+//         <li key={pizza.id} onClick={() => props.selectPizza(pizza.id)}>
+//           { pizza.name }
+//         </li>
+//       ) }
+//     </ul>
+//   </div>)
+
+// selectPizza = (id) => {
+//   this.props.dispatch({
+//       type: 'SELECT_PIZZA',
+//       payload: id
+//   })
+// }
+
+
+
+  handleSubmit = () => {
+    console.log(this.state)
+  }
+
+  render() {
+    console.log(this.state)
     const carOptions = dataArr.map(el => 
     <option value={el[0]} >{`${el[0]} (${el[1].year})`}</option>)
 
-
     return (
       <div className="App">
-        <select>
+        <h1>You've selected {this.state.selectValue}</h1>
+        <select onChange={this.updateSelection}>
           <option>-- pick a model --</option>
           {carOptions}
+          
         </select>
+        <button onClick={this.handleSubmit}>Add</button>
       </div>
     );
   }
