@@ -50,7 +50,7 @@ const mapStateToProps = (state) => {
   
 
 
-  
+
 
 class App extends Component {
   state = {selectValue:''}
@@ -58,17 +58,27 @@ class App extends Component {
 
   updateSelection = (event) => {
     this.setState({
-      selectValue: event.target.value
+      selectValue: event.target.value,
     })
+    console.log(this.state.selectValue)
+    const string = JSON.stringify(this.state.selectValue)
+    console.log(string)
+    console.log(data[string])
+    console.log(data['Bally Astrocade'])
+    console.log(data[String(this.state.selectValue)])
+    console.log(this.state.selectValue) 
   }
 
+
+
   
+
   // Need to get the data of the current selected item
   // in order to put it into the payload
   handleSubmit = () => {
     store.dispatch({
       type: 'ADD_MODEL',
-      payload: this.state.selectValue
+      payload: data[String(this.state.selectValue)]
     })
   }
 
@@ -77,15 +87,19 @@ class App extends Component {
   render() {
     const search = Object.keys(data).find(key=> key === this.state.selectValue)
 
+    console.log(data[` "+ ${search}+" `])
+
+
+
+
     const carOptions = dataArr.map(el => 
     <option value={el[0]} >{`${el[0]} (${el[1].year})`}</option>
     )
-    const {value} = this.state
+
     return (
-      
       <div className="App">
         <h1>You've selected {this.state.selectValue}</h1>
-        <select value={value} onChange={this.updateSelection}>
+        <select value={this.state.selectValue} onChange={this.updateSelection}>
           <option>-- pick a model --</option>
           {carOptions}
           {/* {dataArr.map(el => console.log(el[1].manufacturer) )} */}
