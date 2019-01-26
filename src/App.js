@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import './App.css';
+import { connect } from 'react-redux';
+import { addModelAction } from './actions/addModelAction'
+import store from './store'
 
 const data = {
   "Ivel Z3": {
@@ -28,18 +31,6 @@ const dataArr = Object.entries(data).reduce((acc,next)=>{
   return [...acc, next]
 },[])
 
-class App extends Component {
-  state = {}
-
-  // updateSelection = (event) => {
-  //   this.setState({[event.target.value]: event.target.value})
-  //   console.log(this.state)
-  // }
-
-  updateSelection = (event) => {
-    this.setState({selectValue: event.target.value})
-    // console.log(this.state.selectValue)
-  }
 
 
 
@@ -66,8 +57,29 @@ class App extends Component {
 
 
 
+
+
+const mapStateToProps = (state) => {
+  return {
+    selectedObject: state.selectValue
+  }
+}
+
+
+class App extends Component {
+  state = {}
+
+  updateSelection = (event) => {
+    this.setState({selectValue: event.target.value})
+  }
+
+  // Need to get the data of the current selected item
+  // in order to put it into the payload
   handleSubmit = () => {
-    console.log(this.state)
+    store.dispatch({
+      type: 'ADD_MODEL',
+      payload: this.state.selectValue
+    })
   }
 
   render() {
@@ -89,4 +101,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default connect(mapStateToProps, {addModelAction})(App);

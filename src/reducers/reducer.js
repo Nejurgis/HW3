@@ -1,10 +1,10 @@
-import {ADD_ALBUM} from '../actions/albums'
-import {SET_ALBUMS} from '../actions/albums'
-
+import {ADD_MODEL} from '../actions/addModelAction'
 export default (state = [], action) => {
+    
     switch(action.type) {
-        // case :
-        //     return 
+        case ADD_MODEL :
+        console.log(action)
+            return state
         default:
             return state
     }
