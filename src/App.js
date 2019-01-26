@@ -24,26 +24,22 @@ const data = {
   }
 }
 
-const test = Object.entries(data).reduce((acc,next)=>{  
+const dataArr = Object.entries(data).reduce((acc,next)=>{  
   return [...acc, next]
 },[])
-// const another = test.map(el=>el)
 
-// el[0] = name
-// el[1].year = year
-
-// returns 4 arrays
-// each array has object
-// object has keys
-{/* <option value={el.manufacturer}>{el}</option> */}
 class App extends Component {
-
-
   render() {
+
+    const carOptions = dataArr.map(el => 
+    <option value={el[0]} >{`${el[0]} (${el[1].year})`}</option>)
+
+
     return (
       <div className="App">
         <select>
-        {test.map(el => <option key={Math.random()} label={el[0]+ ' ' + el[1].year} ></option>   )}
+          <option>-- pick a model --</option>
+          {carOptions}
         </select>
       </div>
     );
